@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b2vicub61wf7k"]
+
+[ext_resource type="Texture2D" uid="uid://cp82gbgnps5n4" path="res://sprite/terra.png" id="1_mjkea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(1, 10, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_texture = ExtResource("1_mjkea")
+uv1_scale = Vector3(0.7, 0.7, 0.7)
+uv1_triplanar = true
+texture_filter = 0
+distance_fade_max_distance = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+material = SubResource("StandardMaterial3D_272bh")
+size = Vector3(5, 10, 1)
+
+[node name="walls" type="StaticBody3D" unique_id=1123344209]
+
+[node name="CollisionShape2D" type="CollisionShape3D" parent="." unique_id=818427083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="CollisionShape2D2" type="CollisionShape3D" parent="." unique_id=1046856999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="parede1" type="MeshInstance3D" parent="." unique_id=1483555182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="parede2" type="MeshInstance3D" parent="." unique_id=1548020134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+mesh = SubResource("BoxMesh_lquwl")

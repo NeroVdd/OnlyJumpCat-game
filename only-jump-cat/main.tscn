@@ -1,0 +1,626 @@
+[gd_scene format=3 uid="uid://bgc6l0svre0o4"]
+
+[ext_resource type="Script" uid="uid://7vn06a4wdbe8" path="res://scripts/player/player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://ut1iw2mliwmk" path="res://scripts/main.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://8i8klo2gjkfx" path="res://sprite/playerCat.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://6x8b1pvg2xff" path="res://sprite/grama.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://b6iryjfceh317" path="res://sprite/lava.png" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://b2vicub61wf7k" path="res://objetos/walls.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://kayfedg4f8uf" path="res://objetos/clouds.tscn" id="6_kek77"]
+[ext_resource type="Shader" uid="uid://dp7y145yxiwrp" path="res://scripts/transition.gdshader" id="7_272bh"]
+[ext_resource type="FontFile" uid="uid://dwyry7pdyhgbb" path="res://Gamer.ttf" id="9_4c57u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0xm2m"]
+radius = 0.13
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bvp3"]
+atlas = ExtResource("1_ig7tw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xm2m"]
+atlas = ExtResource("1_ig7tw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2yge"]
+atlas = ExtResource("1_ig7tw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7mycd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bvp3")
+}],
+"loop": false,
+"name": &"down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xm2m")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2yge")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5vw27"]
+radius = 0.14416033
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_texture = ExtResource("3_h2yge")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+texture_filter = 0
+grow_amount = 1.295
+stencil_flags = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lquwl"]
+material = SubResource("StandardMaterial3D_1bvp3")
+size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
+size = Vector3(100, 0.5, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_top_color = Color(0.63471055, 0.36062515, 0.33697984, 1)
+sky_horizon_color = Color(0.74867123, 0.64119595, 0.4093514, 1)
+ground_bottom_color = Color(0.22262898, 0.24837703, 0.33570915, 1)
+ground_horizon_color = Color(0.22352941, 0.24705882, 0.3372549, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+background_color = Color(0.50242263, 0.48120397, 0.67916834, 1)
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+tonemap_exposure = 0.6
+glow_enabled = true
+glow_normalized = true
+glow_strength = 1.2
+glow_bloom = 0.5
+glow_hdr_threshold = 1.16
+glow_hdr_scale = 1.92
+fog_enabled = true
+fog_light_color = Color(0.93282855, 0.8785565, 0.7488569, 1)
+volumetric_fog_length = 200.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+shading_mode = 0
+disable_ambient_light = true
+albedo_texture = ExtResource("5_lquwl")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_offset = Vector3(1, 0, 0)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1bvp3"]
+material = SubResource("StandardMaterial3D_7mycd")
+size = Vector2(300, 300)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mycd"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vw27"]
+shader = ExtResource("7_272bh")
+shader_parameter/progress = 0.0
+shader_parameter/screen_color = Color(0, 0, 0, 1)
+shader_parameter/feather = 0.0
+
+[sub_resource type="Animation" id="Animation_efxa6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro/Transition:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intro/Transition:material:shader_parameter/feather")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("button play/Play:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("button exit/exit:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("button play:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("button exit:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dg77c"]
+resource_name = "intro"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro/Transition:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intro/Transition:material:shader_parameter/feather")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.10000000149012]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("button play/Play:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("button exit/exit:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("button play:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("button exit:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_w48qg"]
+resource_name = "out"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("button play:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("button exit:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intro/Transition:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intro/Transition:material:shader_parameter/feather")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.10000000149012, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ycdy4"]
+resource_name = "play"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(648, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ycdy4"]
+_data = {
+&"RESET": SubResource("Animation_efxa6"),
+&"intro": SubResource("Animation_dg77c"),
+&"out": SubResource("Animation_w48qg"),
+&"play": SubResource("Animation_ycdy4")
+}
+
+[sub_resource type="Animation" id="Animation_kek77"]
+resource_name = "."
+length = 2.0
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("button play:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.08726646, 0.08726646]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("button exit:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.08726646, -0.08726646]
+}
+
+[sub_resource type="Animation" id="Animation_4c57u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("button play:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.08726646]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("button exit:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.08726646]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_efxa6"]
+_data = {
+&".": SubResource("Animation_kek77"),
+&"RESET": SubResource("Animation_4c57u")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
+bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek77"]
+bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cqfq"]
+bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
+border_width_left = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="InputEventKey" id="InputEventKey_5vw27"]
+keycode = 4194309
+
+[sub_resource type="InputEventKey" id="InputEventKey_kek77"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_4c57u"]
+events = [SubResource("InputEventKey_5vw27"), SubResource("InputEventKey_kek77")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_efxa6"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_dg77c"]
+events = [SubResource("InputEventKey_efxa6")]
+
+[node name="main" type="Node3D" unique_id=60728967]
+script = ExtResource("1_1bvp3")
+
+[node name="player" type="CharacterBody3D" parent="." unique_id=876410588 groups=["player"]]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+script = ExtResource("1_0xm2m")
+metadata/_edit_group_ = true
+
+[node name="collision" type="CollisionShape3D" parent="player" unique_id=937122651]
+visible = false
+shape = SubResource("SphereShape3D_0xm2m")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="spr" type="AnimatedSprite3D" parent="player" unique_id=1722353575]
+double_sided = false
+alpha_cut = 2
+texture_filter = 0
+render_priority = 2
+sprite_frames = SubResource("SpriteFrames_7mycd")
+animation = &"up"
+autoplay = "up"
+
+[node name="jumper_time" type="Timer" parent="player" unique_id=172666215]
+wait_time = 0.25
+one_shot = true
+
+[node name="direction_right" type="RayCast3D" parent="player" unique_id=399979326]
+visible = false
+target_position = Vector3(0.15, 0, 0)
+
+[node name="direction_left" type="RayCast3D" parent="player" unique_id=426661472]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+visible = false
+target_position = Vector3(0.15, 0, 0)
+
+[node name="Camera3D" type="Node3D" parent="player" unique_id=13373124]
+transform = Transform3D(0.86689675, 0, 0.49848774, 0, 1, 0, -0.49848774, 0, 0.86689675, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="player/Camera3D" unique_id=318882606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06, 5)
+current = true
+fov = 80.0
+far = 200.0
+
+[node name="dano" type="Area3D" parent="player" unique_id=1191487192]
+
+[node name="collision" type="CollisionShape3D" parent="player/dano" unique_id=999456899]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+shape = SubResource("SphereShape3D_5vw27")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="cenario" type="StaticBody3D" parent="." unique_id=1088490713]
+
+[node name="floor" type="MeshInstance3D" parent="cenario" unique_id=812291495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_lquwl")
+
+[node name="floorcollision" type="CollisionShape3D" parent="cenario" unique_id=945151223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+visible = false
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=302376902]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1811199670]
+transform = Transform3D(1, 0, 0, 0, 0.8660255, 0.50000006, 0, -0.50000006, 0.8660255, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Object" type="Node3D" parent="." unique_id=912628146]
+
+[node name="Lava" type="Area3D" parent="Object" unique_id=1163894793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Object/Lava" unique_id=13971297]
+process_priority = 2
+mesh = SubResource("PlaneMesh_1bvp3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Object/Lava" unique_id=464756686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+shape = SubResource("BoxShape3D_7mycd")
+
+[node name="clouds" parent="Object" unique_id=423374465 instance=ExtResource("6_kek77")]
+
+[node name="walls" parent="." unique_id=1123344209 instance=ExtResource("6_7mycd")]
+
+[node name="HUB" type="Node2D" parent="." unique_id=1908760870]
+process_mode = 3
+
+[node name="Intro" type="Node2D" parent="HUB" unique_id=1139402566]
+
+[node name="Transition" type="ColorRect" parent="HUB/Intro" unique_id=449317874]
+material = SubResource("ShaderMaterial_5vw27")
+offset_right = 648.0
+offset_bottom = 1152.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUB/Intro" unique_id=994614115]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_ycdy4")
+autoplay = &"intro"
+
+[node name="hub" type="AnimationPlayer" parent="HUB" unique_id=230569822]
+libraries/ = SubResource("AnimationLibrary_efxa6")
+autoplay = &"."
+
+[node name="button play" type="Node2D" parent="HUB" unique_id=608408013]
+position = Vector2(320, 808)
+rotation = -0.08726646
+
+[node name="Play" type="Button" parent="HUB/button play" unique_id=810775197]
+offset_left = -200.0
+offset_top = -32.0
+offset_right = 200.0
+offset_bottom = 31.0
+mouse_default_cursor_shape = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("9_4c57u")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kek77")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2cqfq")
+disabled = true
+shortcut = SubResource("Shortcut_4c57u")
+text = "Play"
+language = "pt_BR"
+
+[node name="button exit" type="Node2D" parent="HUB" unique_id=1037639222]
+position = Vector2(320, 928)
+rotation = -0.08726646
+
+[node name="exit" type="Button" parent="HUB/button exit" unique_id=1066335938]
+offset_left = -200.79483
+offset_top = -33.39447
+offset_right = 199.20517
+offset_bottom = 29.60553
+mouse_default_cursor_shape = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("9_4c57u")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kek77")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2cqfq")
+disabled = true
+shortcut = SubResource("Shortcut_dg77c")
+text = "Exit"
+
+[connection signal="timeout" from="player/jumper_time" to="player" method="_on_jumper_time_timeout"]
+[connection signal="area_entered" from="player/dano" to="." method="_on_dano_area_entered"]
+[connection signal="area_entered" from="player/dano" to="player" method="_on_dano_area_entered"]
+[connection signal="body_entered" from="Object/Lava" to="." method="_on_lava_body_entered"]
+[connection signal="animation_finished" from="HUB/Intro/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="HUB/button play/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HUB/button exit/exit" to="." method="_on_exit_pressed"]

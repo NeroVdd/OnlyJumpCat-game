@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://kayfedg4f8uf"]
+
+[ext_resource type="Texture2D" uid="uid://dy772ntu7hkvn" path="res://sprite/nuvem.png" id="1_dikii"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(1, 1, 1, 0.7647059)
+albedo_texture = ExtResource("1_dikii")
+texture_filter = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_efxa6"]
+material = SubResource("StandardMaterial3D_4c57u")
+
+[node name="clouds" type="Node3D" unique_id=423374465]
+
+[node name="clouds" type="CPUParticles3D" parent="." unique_id=292885267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3709726, -0.22227418, -1.7958659)
+emitting = false
+amount = 5
+lifetime = 10.0
+mesh = SubResource("QuadMesh_efxa6")
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector3(0.7, 0, 0)
+scale_amount_min = 0.5
+scale_amount_max = 2.5

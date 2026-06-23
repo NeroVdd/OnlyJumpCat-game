@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://dwx8bk0amu3h5"]
+
+[ext_resource type="Texture2D" uid="uid://brtgm5te6s8f2" path="res://sprite/serra2.png" id="1_4ljcc"]
+[ext_resource type="Texture2D" uid="uid://cq232q8lk8mis" path="res://sprite/serra.png" id="2_5viii"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_272bh"]
+radius = 0.21009035
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_khnly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4ljcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5viii")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_sc1bc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dano:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5151577, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spr:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1aohs"]
+resource_name = "direcao"
+length = 4.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dano:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5151577, 0, 0), Vector3(1.515, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5, 0, 0), Vector3(1.5, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spr:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5, 0, 0), Vector3(1.5, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgsh5"]
+_data = {
+&"RESET": SubResource("Animation_sc1bc"),
+&"direcao": SubResource("Animation_1aohs")
+}
+
+[node name="cerra direcao" type="StaticBody3D" unique_id=2132247801]
+metadata/_edit_group_ = true
+
+[node name="dano" type="Area3D" parent="." unique_id=1197653458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5151577, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dano" unique_id=1092342600]
+shape = SubResource("SphereShape3D_272bh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1900009584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+shape = SubResource("SphereShape3D_272bh")
+
+[node name="spr" type="AnimatedSprite3D" parent="." unique_id=1295487866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+pixel_size = 0.0319
+alpha_cut = 2
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_khnly")
+autoplay = "default"
+frame_progress = 0.25798628
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=130786056]
+libraries/ = SubResource("AnimationLibrary_xgsh5")
+autoplay = &"direcao"

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c6s2q1a86e5rp"]
+
+[ext_resource type="Script" uid="uid://bpjd7d8pnho0a" path="res://scripts/pum.gd" id="1_i0tj2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jphu"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.796243, 0.796243, 0.796243, 1)
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_i0tj2"]
+material = SubResource("StandardMaterial3D_3jphu")
+
+[sub_resource type="Curve" id="Curve_0xm2m"]
+_data = [Vector2(0, 0.19101131), 0.0, 0.0, 0, 0, Vector2(1, 0.7415731), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_h2yge"]
+offsets = PackedFloat32Array(0, 0.6802326, 0.8197674)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="pum" type="CPUParticles3D" unique_id=1512694211]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.75
+mesh = SubResource("BoxMesh_i0tj2")
+emission_shape = 1
+emission_sphere_radius = 0.17
+direction = Vector3(1, 1, 1)
+spread = 180.0
+gravity = Vector3(0, -1.5, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 0.2
+angle_max = 180.0
+scale_amount_min = 0.1
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_0xm2m")
+color_ramp = SubResource("Gradient_h2yge")
+script = ExtResource("1_i0tj2")

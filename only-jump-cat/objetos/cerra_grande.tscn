@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c1n13vfk22sek"]
+
+[ext_resource type="Texture2D" uid="uid://brtgm5te6s8f2" path="res://sprite/serra2.png" id="1_6u0br"]
+[ext_resource type="Texture2D" uid="uid://cq232q8lk8mis" path="res://sprite/serra.png" id="2_7qkp1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_272bh"]
+radius = 0.21009035
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_khnly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6u0br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7qkp1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="cerra grande" type="StaticBody3D" unique_id=190107179]
+transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="dano" type="Area3D" parent="." unique_id=1119554416]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dano" unique_id=1691733235]
+shape = SubResource("SphereShape3D_272bh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1489788083]
+shape = SubResource("SphereShape3D_272bh")
+
+[node name="spr" type="AnimatedSprite3D" parent="." unique_id=1221636512]
+pixel_size = 0.0319
+alpha_cut = 2
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_khnly")
+autoplay = "default"
+frame_progress = 0.25798628

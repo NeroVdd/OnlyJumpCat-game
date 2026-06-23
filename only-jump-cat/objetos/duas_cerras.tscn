@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://nvxso4h3n5c1"]
+
+[ext_resource type="PackedScene" uid="uid://b5m36iqyy0fji" path="res://objetos/cerra_pequena.tscn" id="1_kl27c"]
+
+[node name="duas cerras" type="Node3D" unique_id=1703211937]
+
+[node name="cerra pequena" parent="." unique_id=2037477812 instance=ExtResource("1_kl27c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389, 0, 0)
+
+[node name="cerra pequena2" parent="." unique_id=1952640081 instance=ExtResource("1_kl27c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.389369, 0, 0)
