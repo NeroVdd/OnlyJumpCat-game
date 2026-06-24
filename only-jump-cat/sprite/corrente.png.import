@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://52evp0oi3503"
 path.s3tc="res://.godot/imported/corrente.png-d962075759f10f12644f5a468b841f78.s3tc.ctex"
+path.etc2="res://.godot/imported/corrente.png-d962075759f10f12644f5a468b841f78.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://sprite/corrente.png"
-dest_files=["res://.godot/imported/corrente.png-d962075759f10f12644f5a468b841f78.s3tc.ctex"]
+dest_files=["res://.godot/imported/corrente.png-d962075759f10f12644f5a468b841f78.s3tc.ctex", "res://.godot/imported/corrente.png-d962075759f10f12644f5a468b841f78.etc2.ctex"]
 
 [params]
 

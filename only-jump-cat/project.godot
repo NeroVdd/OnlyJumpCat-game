@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="OnlyJumpCat"
+config/description="Um jogo infinito de subir pulando sobre obstaculos;
+Feito por NeroVdd"
+config/version="1.0.0"
 run/main_scene="uid://bgc6l0svre0o4"
 config/features=PackedStringArray("4.6", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
+config/icon="uid://bwp76datno7m"
 
 [autoload]
 
@@ -23,7 +29,13 @@ Global="*uid://r1b5qhehl137"
 
 window/size/viewport_width=648
 window/size/viewport_height=1152
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[editor]
+
+movie_writer/movie_file="/home/nero/Apps/Godot/Projetos/video Jump/video.avi"
+movie_writer/fps=30
 
 [global_group]
 
@@ -41,3 +53,4 @@ pointing/emulate_touch_from_mouse=true
 
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
