@@ -4,11 +4,19 @@
 [ext_resource type="Script" uid="uid://ut1iw2mliwmk" path="res://scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://8i8klo2gjkfx" path="res://sprite/playerCat.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://6x8b1pvg2xff" path="res://sprite/grama.png" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://bxtkfq05vw37e" path="res://sound/jump_sound_effect.mp3" id="4_efxa6"]
 [ext_resource type="Texture2D" uid="uid://b6iryjfceh317" path="res://sprite/lava.png" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://cvfefpqbfc0uu" path="res://sound/game-over.mp3" id="5_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://b2vicub61wf7k" path="res://objetos/walls.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://kayfedg4f8uf" path="res://objetos/clouds.tscn" id="6_kek77"]
+[ext_resource type="AudioStream" uid="uid://bulyn5377ocer" path="res://sound/touch-grass.mp3" id="6_w48qg"]
+[ext_resource type="Texture2D" uid="uid://ch71q2pu4dg2j" path="res://sprite/montanhas.png" id="7_4c57u"]
 [ext_resource type="Shader" uid="uid://dp7y145yxiwrp" path="res://scripts/transition.gdshader" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://duxuxeqe7ans2" path="res://sound/lava.mp3" id="7_dg77c"]
+[ext_resource type="AudioStream" uid="uid://c31ymqanv8p2t" path="res://sound/hit.mp3" id="7_vivmo"]
 [ext_resource type="FontFile" uid="uid://dwyry7pdyhgbb" path="res://Gamer.ttf" id="9_4c57u"]
+[ext_resource type="AudioStream" uid="uid://bqp6yam8xbah5" path="res://sound/score.mp3" id="16_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://cp82gbgnps5n4" path="res://sprite/terra.png" id="17_yaehf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0xm2m"]
 radius = 0.13
@@ -86,12 +94,12 @@ sky = SubResource("Sky_h2yge")
 tonemap_mode = 2
 tonemap_exposure = 0.6
 glow_enabled = true
+glow_levels/3 = 16.0
 glow_normalized = true
 glow_strength = 1.2
 glow_bloom = 0.5
 glow_hdr_threshold = 1.16
 glow_hdr_scale = 1.92
-fog_enabled = true
 fog_light_color = Color(0.93282855, 0.8785565, 0.7488569, 1)
 volumetric_fog_length = 200.0
 
@@ -470,6 +478,11 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_dg77c"]
 events = [SubResource("InputEventKey_efxa6")]
 
+[sub_resource type="LabelSettings" id="LabelSettings_vivmo"]
+font = ExtResource("9_4c57u")
+font_size = 62
+outline_color = Color(0, 0, 0, 1)
+
 [node name="main" type="Node3D" unique_id=60728967]
 script = ExtResource("1_1bvp3")
 
@@ -521,6 +534,25 @@ transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0,
 shape = SubResource("SphereShape3D_5vw27")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
+[node name="jump sound effect" type="AudioStreamPlayer3D" parent="player" unique_id=1005434593]
+stream = ExtResource("4_efxa6")
+volume_db = -5.0
+max_db = 1.0
+
+[node name="sound-die" type="AudioStreamPlayer3D" parent="player" unique_id=3105990]
+process_mode = 3
+stream = ExtResource("5_ycdy4")
+volume_db = 10.0
+max_db = 5.0
+
+[node name="grass" type="AudioStreamPlayer3D" parent="player" unique_id=1556878083]
+stream = ExtResource("6_w48qg")
+volume_db = 5.0
+
+[node name="wall" type="AudioStreamPlayer3D" parent="player" unique_id=709466099]
+stream = ExtResource("7_vivmo")
+volume_db = 5.0
+
 [node name="cenario" type="StaticBody3D" parent="." unique_id=1088490713]
 
 [node name="floor" type="MeshInstance3D" parent="cenario" unique_id=812291495]
@@ -553,9 +585,31 @@ mesh = SubResource("PlaneMesh_1bvp3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 shape = SubResource("BoxShape3D_7mycd")
 
+[node name="som lava" type="AudioStreamPlayer3D" parent="Object/Lava" unique_id=901345164]
+stream = ExtResource("7_dg77c")
+volume_db = 5.0
+autoplay = true
+
 [node name="clouds" parent="Object" unique_id=423374465 instance=ExtResource("6_kek77")]
 
+[node name="mountain" type="Sprite3D" parent="Object" unique_id=142504470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49.5, -57)
+pixel_size = 1.0
+shaded = true
+double_sided = false
+texture_filter = 2
+texture = ExtResource("7_4c57u")
+
 [node name="walls" parent="." unique_id=1123344209 instance=ExtResource("6_7mycd")]
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="." unique_id=1170957233]
+modulate = Color(1, 1, 1, 0.003921569)
+position = Vector2(0, -1)
+scale = Vector2(0.63281244, 1.125)
+texture_normal = ExtResource("17_yaehf")
+shape_visible = false
+action = "ui_accept"
+visibility_mode = 1
 
 [node name="HUB" type="Node2D" parent="." unique_id=1908760870]
 process_mode = 3
@@ -616,6 +670,27 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2cqfq")
 disabled = true
 shortcut = SubResource("Shortcut_dg77c")
 text = "Exit"
+
+[node name="Score" type="Label" parent="." unique_id=1026740458]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 187.0
+offset_bottom = 58.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_vivmo")
+
+[node name="Best Score" type="Label" parent="." unique_id=1610187553]
+process_mode = 3
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 295.0
+offset_bottom = 106.0
+text = "Best Score: 0"
+label_settings = SubResource("LabelSettings_vivmo")
+
+[node name="score sound" type="AudioStreamPlayer" parent="Best Score" unique_id=494215987]
+stream = ExtResource("16_2cqfq")
+volume_db = 3.0
 
 [connection signal="timeout" from="player/jumper_time" to="player" method="_on_jumper_time_timeout"]
 [connection signal="area_entered" from="player/dano" to="." method="_on_dano_area_entered"]

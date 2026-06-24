@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://drrww4mq5y555"]
+
+[ext_resource type="Script" uid="uid://dhenp4ymnwo1e" path="res://scripts/shuriken.gd" id="1_dg31a"]
+[ext_resource type="Texture2D" uid="uid://cnntk3try4hrr" path="res://sprite/shuriken.png" id="2_bm1yn"]
+[ext_resource type="AudioStream" uid="uid://bra2ptsaq03qi" path="res://sound/shuriken.mp3" id="3_bm1yn"]
+
+[sub_resource type="Animation" id="Animation_vivmo"]
+resource_name = "."
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 6.2831855)]
+}
+
+[sub_resource type="Animation" id="Animation_2cqfq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yaehf"]
+_data = {
+&".": SubResource("Animation_vivmo"),
+&"RESET": SubResource("Animation_2cqfq")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_074og"]
+radius = 0.030434653
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cegan"]
+radius = 0.10929585
+
+[node name="shuriken" type="RigidBody3D" unique_id=1191855478]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_dg31a")
+metadata/_edit_group_ = true
+
+[node name="centro spr" type="Node3D" parent="." unique_id=2014154151]
+
+[node name="spr" type="Sprite3D" parent="centro spr" unique_id=1651872326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020443039, -0.039631918, 0)
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("2_bm1yn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="centro spr/spr" unique_id=441836627]
+libraries/ = SubResource("AnimationLibrary_yaehf")
+autoplay = &"."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=278858930]
+shape = SubResource("SphereShape3D_074og")
+
+[node name="Timer" type="Timer" parent="CollisionShape3D" unique_id=140229169]
+wait_time = 0.5
+one_shot = true
+
+[node name="kill" type="Area3D" parent="." unique_id=559187202]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="kill" unique_id=1115878264]
+shape = SubResource("SphereShape3D_cegan")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1446884135]
+stream = ExtResource("3_bm1yn")
+autoplay = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="CollisionShape3D/Timer" to="." method="_on_timer_timeout"]

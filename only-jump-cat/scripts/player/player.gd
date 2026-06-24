@@ -10,12 +10,16 @@ const JUMP_VELOCITY = 6.5
 
 var jump = true
 
+var grass=false
+
 var direction = 1
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if life:
 		if !is_on_floor():
+			grass=true
+			Global.score += 1 * delta
 			CAMERA(delta)
 			if direction == 1:
 				velocity.x = 2.5
@@ -25,6 +29,9 @@ func _physics_process(delta: float) -> void:
 				$"spr".flip_h = true
 			velocity.y -= 9 * delta
 		else:
+			if grass and !$"grass".playing:
+				$"grass".play()
+				grass = false
 			velocity.x = 0
 		if velocity.y > 0:
 			$"spr".play("up")
@@ -32,11 +39,17 @@ func _physics_process(delta: float) -> void:
 			$"spr".play("down")
 		if $"direction_right".is_colliding() and direction == 1:
 			direction = -1
+			$"wall".pitch_scale = randf_range(1,1.7)
+			$"wall".play()
 		elif $"direction_left".is_colliding() and direction == -1:
 			direction = 1
+			$"wall".pitch_scale = randf_range(1,1.7)
+			$"wall".play()
 			
 		# Handle jump.
 		if Input.is_action_just_pressed("ui_accept") and jump:
+			$"jump sound effect".pitch_scale = randf_range(1,1.8)
+			$"jump sound effect".play()
 			velocity.y = JUMP_VELOCITY
 			jump = false
 			$"jumper_time".start()
@@ -49,6 +62,8 @@ func _physics_process(delta: float) -> void:
 		$"spr".play("hurt")
 		velocity.x=0
 		if animation_died==1:
+			if !$"sound-die".playing:
+				$"sound-die".play()
 			velocity.y+=0.7
 			up-=1
 			if up<=0:

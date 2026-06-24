@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://80qcfw841u5s"]
+
+[ext_resource type="Script" uid="uid://dawmkpif6sv3e" path="res://objetos/atirador_right.gd" id="1_wxise"]
+[ext_resource type="AudioStream" uid="uid://5nq6bsnfo12k" path="res://sound/atirador.mp3" id="2_6e08w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_efxa6"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="AtiradorRight" type="StaticBody3D" unique_id=1429466349]
+script = ExtResource("1_wxise")
+metadata/_edit_group_ = true
+
+[node name="Atirador" type="MeshInstance3D" parent="." unique_id=938345287]
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1179081308]
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="." unique_id=1494653709]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+aabb = AABB(-3, -1, -1, 6, 2, 2)
+
+[node name="shoot" type="Timer" parent="." unique_id=639424576]
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1629449512]
+stream = ExtResource("2_6e08w")
+volume_db = 10.0
+
+[connection signal="screen_entered" from="VisibleOnScreenEnabler3D" to="." method="_on_visible_on_screen_enabler_3d_screen_entered"]
+[connection signal="timeout" from="shoot" to="." method="_on_shoot_timeout"]

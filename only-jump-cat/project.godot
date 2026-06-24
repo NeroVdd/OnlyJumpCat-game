@@ -15,6 +15,10 @@ run/main_scene="uid://bgc6l0svre0o4"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*uid://r1b5qhehl137"
+
 [display]
 
 window/size/viewport_width=648
@@ -24,6 +28,10 @@ window/stretch/mode="viewport"
 [global_group]
 
 player=""
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 

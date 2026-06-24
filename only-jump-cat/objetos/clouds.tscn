@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_4c57u")
 [node name="clouds" type="CPUParticles3D" parent="." unique_id=292885267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3709726, -0.22227418, -1.7958659)
 emitting = false
-amount = 5
+amount = 10
 lifetime = 10.0
 mesh = SubResource("QuadMesh_efxa6")
 emission_shape = 1

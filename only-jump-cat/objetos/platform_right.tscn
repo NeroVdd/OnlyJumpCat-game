@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://7gccbn2jlkty"]
+
+[ext_resource type="PackedScene" uid="uid://bvslq4losaek" path="res://objetos/bloco.tscn" id="1_46o1s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e5hym"]
+
+[node name="platform_right" type="StaticBody3D" unique_id=1637468399]
+
+[node name="plataforma" parent="." unique_id=459262850 instance=ExtResource("1_46o1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="plataforma2" parent="." unique_id=1150245098 instance=ExtResource("1_46o1s")]
+
+[node name="plataforma3" parent="." unique_id=528705190 instance=ExtResource("1_46o1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="plataforma4" parent="." unique_id=1259951425 instance=ExtResource("1_46o1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=300194834]
+shape = SubResource("SphereShape3D_e5hym")
